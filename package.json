@@ -1,0 +1,16 @@
+{
+  "name": "docker-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:start": "docker build -t docker-app . && docker run -d -p 3000:3000 --name docker-container docker-app",
+    "start": "npm i && node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}

@@ -1,0 +1,9 @@
+services:
+  node:
+    image: node:17-alpine
+    working_dir: /home/node/app
+    expose:
+      - "3000"
+    volumes:
+      - ./:/home/node/app
+    command: "npm start"
