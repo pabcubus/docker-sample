@@ -1,20 +1,26 @@
 const express = require('express')
-const DbDao = require('./src/DbDao')
+const DbDao = require('./src/DAO/DbDao')
 const app = express()
+
+const users = require('./src/Endpoints/users');
 
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
 app.listen(3000)
-console.log('Program running...');
 
 console.log('Initiating connection to DB...')
 const dbdao = new DbDao()
-dbdao.initConn()
-  .then(() => {
-    console.log('Connection done!')
+
+Promise.all([
+  dbdao.initConn()
+]).then(() => {
+    console.log('DB Connection done!')
+    console.info('Program running...');
+    app.use('/users', users)
+    dbdao.closeConn()
   })
   .catch(() => {
-    console.log('Error on connection!')
+    console.log('Error on DB Connection!')
   })
