@@ -18,6 +18,13 @@ function createApiClient(endpointName) {
       })
   });
 
+  router.post('/', function(req, res) {
+    dbDao.post(endpointName, req.body)
+      .then(item => {
+        res.status(200).json(item)
+      })
+  });
+
   return { router }
 }
 

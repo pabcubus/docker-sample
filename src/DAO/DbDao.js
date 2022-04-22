@@ -62,6 +62,10 @@ class DbDao {
   get(collection) {
     return this.dbo.collection(collection).find().toArray()
   }
+
+  post(collection, newItem) {
+    return this.dbo.collection(collection).insertOne(newItem)
+  }
 }
 
 module.exports = DbDao

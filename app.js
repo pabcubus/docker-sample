@@ -1,23 +1,23 @@
 const express = require('express')
 const DbDao = require('./src/DAO/DbDao')
 const createApiClient = require('./src/Endpoints/apiClient')
+const bodyParser = require('body-parser');
 const app = express()
 
-const services = [
-  {
-    name: 'users',
-    ...createApiClient('users')
-  },{
-    name: 'orders',
-    ...createApiClient('orders')
-  }
-]
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
 app.listen(3000)
+
+const services = ['users', 'orders'].map(name => ({
+  name,
+  ...createApiClient(name)
+}))
 
 console.log('Initiating connection to DB...')
 const dbdao = new DbDao()
