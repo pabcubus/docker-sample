@@ -1,8 +1,9 @@
 const express = require('express')
-const DbDao = require('./src/DAO/DbDao')
-const createApiClient = require('./src/Endpoints/apiClient')
 const bodyParser = require('body-parser');
 const app = express()
+
+const DbDao = require('./src/DAO/DbDao')
+const createApiClient = require('./src/Endpoints/apiClient')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
