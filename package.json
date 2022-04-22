@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docker:services": "docker-compose up -d",
+    "docker:compose": "docker-compose up -d",
     "docker:start": "docker build -t docker-app . && docker run -d -p 3000:3000 --name docker-container docker-app",
     "start": "npm i && node app.js",
     "dev": "node app.js",

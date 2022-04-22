@@ -1,8 +1,17 @@
 const express = require('express')
 const DbDao = require('./src/DAO/DbDao')
+const createApiClient = require('./src/Endpoints/apiClient')
 const app = express()
 
-const users = require('./src/Endpoints/users');
+const services = [
+  {
+    name: 'users',
+    ...createApiClient('users')
+  },{
+    name: 'orders',
+    ...createApiClient('orders')
+  }
+]
 
 app.get('/', function (req, res) {
   res.send('Hello World')
@@ -18,7 +27,9 @@ Promise.all([
 ]).then(() => {
     console.log('DB Connection done!')
     console.info('Program running...');
-    app.use('/users', users)
+    services.forEach(s => {
+      app.use(`/${s.name}`, s.router)
+    })
     dbdao.closeConn()
   })
   .catch(() => {
